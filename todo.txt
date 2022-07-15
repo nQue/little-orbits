@@ -1,0 +1,30 @@
+Orbit simulation software
+===============================
+
+minimal requirements
+--------------------
+- rust
+- geometric algebra
+- can import meteor orbits from CSV tables, and plot them as cloudy arcs through space
+
+medium requirements
+-------------------
+- good-looking GUI frontend in 3D.
+- can import ephemerides from NASA + ESA + JAXA.
+- can place new objects in space (like sattelites).
+- can extrapolate beyond ephemerides by using gravity integrator.
+- can automatically spawn lots of object simulations, to do monte-carlo simulations and stability analysis.
+- can adjust what distance the f64 uses for 1.0, and what speeds and masses it uses for 1.0 (to maximize precision). This is the scaling factor, unique for each measurement.
+- when objects are imported, their numbers are ported to the scaling factor, and then you can use the orbit integrator, combined with monte carlo fuzziness, to increase the accuracy of all the numbers (mass, position, velocity), to minimize the total squared-root error over the entire ephimerides. The new values replace the ephemerides.
+- ephemerides and scene files are imported by drag-and-drop, not by an import dialog.
+- orbit integration is done by the CPU on f64, not on GPU and not with SIMD.
+- each orbit object is imported (created) with a "group id", so that all objects created by "import action 17" can be deleted as a group.
+- When an object with ephemerides (or otherwise predicted orbits) is moved, all the stored positions about it are promptly deleted, and new ones are simulated out from the current position.
+- the integrator can work both into the future and into the past
+- When moving an object, you can select in which manner to move it: it uses the Blender keyboard shortcuts, and you can select if we should keep the orbital period, or the momentum, or something else to keep constant. This would scale the velocity so that the object would continue moving the way you intended. This is mostly for thought experiments.
+- when you move around in the GUI, three zoom levels are easy to jump between: full system overview, orbit overview, and planet detail. You can zoom quite freely across the entire scope, but the zoom level "homes in" on these select areas, like a kind of "targeting assistance", by making you use lots of scroll movements to go through them, but very few scroll movements to pass between them. The GUI does a smooth transition animation between each zoom level, so even when doing big jumps in zoom level the UI swooshes past smoothly and calmly, so you never lose track of where you are.
+- In default view mode, the plane of the ecliptic is fading in and out, and there are shadows from the objects to the ecliptic, helping you "see" the 3D depth. There is also a slight haze, giving you a sense of depth to objects. Objects further away have their color faded. So orbits that go far away, you can see the curve gradually fading out into the distance, but never completely disappearing.
+- can enter a mission profile, with actions taken at so-and-so times, or at so-and-so positions/situations.
+- can do very deep historical dates and future dates
+- accounts for earth precession and tilt oscillations
+- 
